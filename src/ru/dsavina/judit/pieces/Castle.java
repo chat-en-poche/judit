@@ -7,7 +7,7 @@ public class Castle extends Piece {
     @Override
     public void move(Board board, int i, int j, int x, int y) throws Exception {
 
-        if (x != i && y != j) {
+        if (x != i || y != j) {
             throw new Exception("A castle moves horizontally or vertically.");
         }
 

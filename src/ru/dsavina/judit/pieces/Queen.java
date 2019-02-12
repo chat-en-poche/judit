@@ -22,10 +22,71 @@ public class Queen extends Piece {
             diffJy = y - j;
         }
 
-        if (diffIx != diffJy && (x != i && y != j)) {
+        if (diffIx != diffJy && x != i && y != j) {
             throw new Exception("Wrong move.");
         }
 
+        if (diffIx == diffJy) {
+            if (i > x) {
+                if (j > y) {
+                    for (int d = i - 1, k = j - 1; d > x + 1 && k > y + 1; d--, k--) {
+                        if (board.getPiece(d, k) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                } else {
+                    for (int d = i - 1, k = j + 1; d > x + 1 && k < y - 1; d--, k++) {
+                        if (board.getPiece(d, k) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                }
+            } else {
+                if (j > y) {
+                    for (int d = i + 1, k = j - 1; d < x - 1 && k > y + 1; d++, k--) {
+                        if (board.getPiece(d, k) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                } else {
+                    for (int d = i + 1, k = j + 1; d < x - 1 && k < y - 1; d++, k++) {
+                        if (board.getPiece(d, k) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                }
+            }
+        } else {
+            if (j == y) {
+                if (i < x) {
+                    for (int d = i + 1; d < x - 1; d++) {
+                        if (board.getPiece(d, j) != null) {
+                            throw new Exception("A");
+                        }
+                    }
+                } else {
+                    for (int d = i - 1; d > x + 1; d--) {
+                        if (board.getPiece(d, j) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                }
+            } else {
+                if (j < y) {
+                    for (int d = j + 1; d < y - 1; d++) {
+                        if (board.getPiece(i, d) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                } else {
+                    for (int d = j - 1; d > y + 1; d--) {
+                        if (board.getPiece(i, d) != null) {
+                            throw new Exception("");
+                        }
+                    }
+                }
+            }
+        }
 
 
         if (board.getPiece(x, y) != null && this.isWhite == board.getPiece(x, y).isWhite) {
