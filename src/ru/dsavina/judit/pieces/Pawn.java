@@ -93,4 +93,9 @@ public class Pawn extends Piece {
         board.setPiece(board.getPiece(i, j), x, y);
         board.setPiece(null, i, j);
     }
+
+    @Override
+    public String toString() {
+        return "p";
+    }
 }

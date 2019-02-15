@@ -97,4 +97,9 @@ public class Queen extends Piece {
         board.setPiece(null, i, j);
 
     }
+
+    @Override
+    public String toString() {
+        return "Q";
+    }
 }

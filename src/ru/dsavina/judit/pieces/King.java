@@ -51,4 +51,9 @@ public class King extends Piece {
             board.setPiece(null, 0, 1);
         }
     }
+
+    @Override
+    public String toString() {
+        return "K";
+    }
 }

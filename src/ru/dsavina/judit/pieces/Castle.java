@@ -49,4 +49,9 @@ public class Castle extends Piece {
         board.setPiece(null, i, j);
 
     }
+
+    @Override
+    public String toString() {
+        return "C";
+    }
 }
