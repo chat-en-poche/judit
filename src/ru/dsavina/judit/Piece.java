@@ -6,4 +6,6 @@ public abstract class Piece {
 
     public abstract void move(Board board, int i, int j, int x, int y) throws Exception;
 
+    public abstract boolean canAttack(Board board, int i, int j, int x, int y);
+
 }

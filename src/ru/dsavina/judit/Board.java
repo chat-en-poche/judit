@@ -6,83 +6,44 @@ public class Board {
 
     private Piece[][] board = new Piece[8][8];
 
+    public void initPiece(Piece piece, boolean isWhite, int i, int j) {
+        piece.isWhite = isWhite;
+        this.setPiece(piece, i, j);
+    }
+
     public Board() {
 
-        Piece piece = new Pawn();
-        piece.isWhite = true;
         for (int j = 0; j <= 7; j++) {
-            this.setPiece(piece, 6, j);
+            this.initPiece(new Pawn(), true, 6, j);
         }
 
-        piece = new Pawn();
-        piece.isWhite = false;
         for (int j = 0; j <= 7; j++) {
-            this.setPiece(piece, 1, j);
+            this.initPiece(new Pawn(), false, 1, j);
         }
 
-        piece = new Castle();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 0);
+        this.initPiece(new Castle(), true, 7, 0);
+        this.initPiece(new Castle(), true, 7, 7);
 
-        piece = new Castle();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 7);
+        this.initPiece(new Castle(), false, 0, 0);
+        this.initPiece(new Castle(), false, 0, 7);
 
-        piece = new Castle();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 0);
+        this.initPiece(new Knight(), true, 7, 1);
+        this.initPiece(new Knight(), true, 7, 6);
 
-        piece = new Castle();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 7);
+        this.initPiece(new Knight(), false, 0, 1);
+        this.initPiece(new Knight(), false, 0, 6);
 
-        piece = new Knight();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 1);
+        this.initPiece(new Bishop(), true, 7, 2);
+        this.initPiece(new Bishop(), true, 7, 5);
 
-        piece = new Knight();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 6);
+        this.initPiece(new Bishop(), false, 0, 2);
+        this.initPiece(new Bishop(), false, 0, 5);
 
-        piece = new Knight();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 1);
+        this.initPiece(new Queen(), true, 7, 3);
+        this.initPiece(new Queen(), false, 0, 3);
 
-        piece = new Knight();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 6);
-
-        piece = new Bishop();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 2);
-
-        piece = new Bishop();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 5);
-
-        piece = new Bishop();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 2);
-
-        piece = new Bishop();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 5);
-
-        piece = new Queen();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 3);
-
-        piece = new Queen();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 3);
-
-        piece = new King();
-        piece.isWhite = true;
-        this.setPiece(piece, 7, 4);
-
-        piece = new King();
-        piece.isWhite = false;
-        this.setPiece(piece, 0, 4);
+        this.initPiece(new King(), true, 7, 4);
+        this.initPiece(new King(), false, 0, 4);
     }
 
     public Piece getPiece(int i, int j) {
@@ -113,6 +74,7 @@ public class Board {
 
     public void printBoard() {
         for (int d = 0; d < this.board.length; d++) {
+            System.out.print((8 - d) + " ");
             for (int k = 0; k < this.board[d].length; k++) {
                 if (this.getPiece(d, k) == null) {
                     System.out.print("  ");
@@ -128,6 +90,8 @@ public class Board {
 
             System.out.println();
         }
+
+        System.out.println("  A B C D E F G H "); //напечатать сереньким
     }
 
     public int[] convertCoordinates(String koordinatko) {
@@ -180,5 +144,29 @@ public class Board {
         return result;
     }
 
+    public boolean hasCheck(boolean isWhite) {
 
+        int i = 0;
+        int j = 0;
+
+        for (int d = 0; d < board.length; d++) {
+            for (int k = 0; k < board[d].length; k++) {
+                if (board[d][k] != null && board[d][k].toString().equals("K") && board[d][k].isWhite == isWhite) {
+                    i = d;
+                    j = k;
+                }
+            }
+        }
+
+        for (int d = 0; d < board.length; d++) {
+            for (int k = 0; k < board[d].length; k++) {
+                if (board[d][k] != null && board[d][k].isWhite != isWhite) {
+                    if (board[d][k].canAttack(this, d, k, i, j)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

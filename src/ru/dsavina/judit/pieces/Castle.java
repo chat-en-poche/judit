@@ -54,4 +54,9 @@ public class Castle extends Piece {
     public String toString() {
         return "C";
     }
+
+    @Override
+    public boolean canAttack(Board board, int i, int j, int x, int y) {
+        return false;
+    }
 }

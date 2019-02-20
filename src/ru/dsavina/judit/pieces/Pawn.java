@@ -98,4 +98,19 @@ public class Pawn extends Piece {
     public String toString() {
         return "p";
     }
+
+    @Override
+    public boolean canAttack(Board board, int i, int j, int x, int y) {
+        if (this.isWhite) {
+            if (x == i - 1 && (y == j + 1 || y == j - 1)) {
+                return true;
+            }
+        } else {
+            if (x == i + 1 && (y == j + 1 || y == j - 1)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
