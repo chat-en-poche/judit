@@ -57,6 +57,34 @@ public class Castle extends Piece {
 
     @Override
     public boolean canAttack(Board board, int i, int j, int x, int y) {
+
+        if (j == y) {
+            if (i < x) {
+                for (int d = i + 1; d < x - 1; d++) {
+                    if (board.getPiece(d, j) == null) {
+                        return true;
+                    }
+                }
+            } else {
+                for (int d = i - 1; d > x + 1; d--) {
+                    if (board.getPiece(d, j) == null) {
+                        return true;
+                    }
+                }
+            }
+        } else if (j < y) {
+            for (int d = j + 1; d < y - 1; d++) {
+                if (board.getPiece(i, d) == null) {
+                    return true;
+                }
+            }
+        } else {
+            for (int d = j - 1; d > y + 1; d--) {
+                if (board.getPiece(i, d) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

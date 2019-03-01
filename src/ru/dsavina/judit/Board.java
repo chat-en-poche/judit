@@ -74,13 +74,18 @@ public class Board {
 
     public void printBoard() {
         for (int d = 0; d < this.board.length; d++) {
+            System.out.print("\033[33m");
             System.out.print((8 - d) + " ");
+            System.out.print("\033[0m");
+
             for (int k = 0; k < this.board[d].length; k++) {
                 if (this.getPiece(d, k) == null) {
                     System.out.print("  ");
                 } else {
                     if (!this.getPiece(d, k).isWhite) {
                         System.out.print("\033[34m");
+                    } else {
+                        System.out.print("\033[31m");
                     }
 
                     System.out.print(this.board[d][k] + " ");
@@ -90,8 +95,9 @@ public class Board {
 
             System.out.println();
         }
-
-        System.out.println("  A B C D E F G H "); //напечатать сереньким
+        System.out.print("\033[33m");
+        System.out.println("  A B C D E F G H ");
+        System.out.print("\033[0m");
     }
 
     public int[] convertCoordinates(String koordinatko) {

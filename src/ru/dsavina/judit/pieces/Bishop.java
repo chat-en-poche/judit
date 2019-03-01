@@ -72,6 +72,37 @@ public class Bishop extends Piece {
 
     @Override
     public boolean canAttack(Board board, int i, int j, int x, int y) {
+
+        if (i > x) {
+            if (j > y) {
+                for (int d = i - 1, k = j - 1; d > x + 1 && k > y + 1; d--, k--) {
+                    if (board.getPiece(d, k) == null) {
+                        return true;
+                    }
+                }
+            } else {
+                for (int d = i - 1, k = j + 1; d > x + 1 && k < y - 1; d--, k++) {
+                    if (board.getPiece(d, k) == null) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            if (j > y) {
+                for (int d = i + 1, k = j - 1; d < x - 1 && k > y + 1; d++, k--) {
+                    if (board.getPiece(d, k) == null) {
+                        return true;
+                    }
+                }
+            } else {
+                for (int d = i + 1, k = j + 1; d < x - 1 && k < y - 1; d++, k++) {
+                    if (board.getPiece(d, k) != null) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 }

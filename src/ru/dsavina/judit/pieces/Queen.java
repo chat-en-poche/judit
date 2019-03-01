@@ -105,6 +105,84 @@ public class Queen extends Piece {
 
     @Override
     public boolean canAttack(Board board, int i, int j, int x, int y) {
+
+        int diffIx;
+        int diffJy;
+
+        if (i > x) {
+            diffIx = i - x;
+        } else {
+            diffIx = x - i;
+        }
+
+        if (j > y) {
+            diffJy = j - y;
+        } else {
+            diffJy = y - j;
+        }
+
+        if (diffIx == diffJy) {
+            if (i > x) {
+                if (j > y) {
+                    for (int d = i - 1, k = j - 1; d > x + 1 && k > y + 1; d--, k--) {
+                        if (board.getPiece(d, k) == null) {
+                            return true;
+                        }
+                    }
+                } else {
+                    for (int d = i - 1, k = j + 1; d > x + 1 && k < y - 1; d--, k++) {
+                        if (board.getPiece(d, k) == null) {
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                if (j > y) {
+                    for (int d = i + 1, k = j - 1; d < x - 1 && k > y + 1; d++, k--) {
+                        if (board.getPiece(d, k) == null) {
+                            return true;
+                        }
+                    }
+                } else {
+                    for (int d = i + 1, k = j + 1; d < x - 1 && k < y - 1; d++, k++) {
+                        if (board.getPiece(d, k) == null) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else {
+            if (j == y) {
+                if (i < x) {
+                    for (int d = i + 1; d < x - 1; d++) {
+                        if (board.getPiece(d, j) == null) {
+                            return true;
+                        }
+                    }
+                } else {
+                    for (int d = i - 1; d > x + 1; d--) {
+                        if (board.getPiece(d, j) == null) {
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                if (j < y) {
+                    for (int d = j + 1; d < y - 1; d++) {
+                        if (board.getPiece(i, d) == null) {
+                            return true;
+                        }
+                    }
+                } else {
+                    for (int d = j - 1; d > y + 1; d--) {
+                        if (board.getPiece(i, d) == null) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
         return false;
     }
 }
